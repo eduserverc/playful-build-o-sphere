@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import CourtAvailability from "./pages/CourtAvailability";
 import FindPlayers from "./pages/FindPlayers";
 import Rentals from "./pages/Rentals";
+import AddRental from "./pages/AddRental";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
@@ -72,6 +73,14 @@ const App = () => (
                 element={
                   <PageTransition>
                     <Rentals />
+                  </PageTransition>
+                } 
+              />
+              <Route 
+                path="/add-rental" 
+                element={
+                  <PageTransition>
+                    <AddRental />
                   </PageTransition>
                 } 
               />

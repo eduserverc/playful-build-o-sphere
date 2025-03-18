@@ -17,23 +17,17 @@ const CourtTimeSlot: React.FC<CourtTimeSlotProps> = ({ timeSlot, onClick }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      whileHover={{ scale: 1.03 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
       className={cn(
-        'rounded-full py-8 px-10 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center',
+        'py-4 px-6 text-center cursor-pointer rounded-lg',
         isAvailable 
-          ? 'bg-badminton-purple-100' 
-          : 'bg-badminton-purple-600 text-white'
+          ? 'bg-purple-100 text-purple-800' 
+          : 'bg-purple-600 text-white'
       )}
     >
       <span className="text-lg font-medium">{timeSlot.time}</span>
-      <span className={cn(
-        'text-sm mt-1',
-        isAvailable ? 'text-badminton-purple-800' : 'text-badminton-purple-200'
-      )}>
-        {isAvailable ? 'Available' : 'Booked'}
-      </span>
     </motion.div>
   );
 };
