@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { motion } from 'framer-motion';
 
 interface Player {
@@ -41,81 +42,87 @@ const FindPlayers = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <div className="flex">
-        {/* Filter Options Panel */}
-        <div className="w-[360px] bg-purple-100 p-6 min-h-screen">
-          <h2 className="text-xl font-bold mb-4">Filter Options</h2>
+    <div className="min-h-screen flex">
+      {/* Filter Options Panel */}
+      <div className="w-[360px] bg-purple-100 p-6 min-h-screen">
+        <h2 className="text-xl font-bold mb-4">Filter Options</h2>
+        
+        <div className="space-y-6">
+          <div>
+            <label className="block mb-2">Game Type</label>
+            <Input 
+              type="text" 
+              placeholder="e.g., Chess, Tennis" 
+              className="w-full rounded-full"
+            />
+          </div>
           
-          <div className="space-y-6">
-            <div>
-              <label className="block mb-2">Game Type</label>
-              <Input 
-                type="text" 
-                placeholder="e.g., Chess, Tennis" 
-                className="w-full rounded-full"
-              />
-            </div>
-            
-            <div>
-              <label className="block mb-2">Skill Level</label>
-              <div className="flex gap-2">
-                <label className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-purple-600"></div>
-                  <span>Beginner</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-purple-600"></div>
-                  <span>Intermediate</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-purple-600"></div>
-                  <span>Expert</span>
-                </label>
+          <div>
+            <label className="block mb-2">Skill Level</label>
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-white"></div>
+                </div>
+                <span>Beginner</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-white"></div>
+                </div>
+                <span>Intermediate</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-white"></div>
+                </div>
+                <span>Expert</span>
               </div>
             </div>
-            
-            <div>
-              <label className="block mb-2">Availability</label>
-              <label className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-purple-600"></div>
-                <span>Available now</span>
-              </label>
+          </div>
+          
+          <div>
+            <label className="block mb-2">Availability</label>
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-white"></div>
+              </div>
+              <span>Available now</span>
             </div>
           </div>
         </div>
-        
-        {/* Main Content */}
-        <div className="flex-1 p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {players.map((player) => (
-              <motion.div
-                key={player.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col items-center"
+      </div>
+      
+      {/* Main Content */}
+      <div className="flex-1 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {players.map((player) => (
+            <motion.div
+              key={player.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center"
+            >
+              <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
+                <img 
+                  src={player.photoUrl} 
+                  alt={player.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-1">{player.name}</h3>
+              <p className="text-gray-600 mb-4">{player.skill}- {player.gameType}</p>
+              <Button
+                className="w-full bg-purple-600 hover:bg-purple-700 rounded-full py-6"
               >
-                <div className="w-40 h-40 rounded-full overflow-hidden mb-4">
-                  <img 
-                    src={player.photoUrl} 
-                    alt={player.name} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold">{player.name}</h3>
-                <p className="text-gray-700">{player.skill}- {player.gameType}</p>
-                <Button
-                  className="mt-4 w-full bg-purple-600 hover:bg-purple-700 rounded-full"
-                >
-                  Send Game Request
-                </Button>
-              </motion.div>
-            ))}
-          </div>
-          
-          <div className="mt-8 bg-purple-100 p-4 rounded-lg text-center">
-            <p>The court is currently unavailable. You have been added to the queue.</p>
-          </div>
+                Send Game Request
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+        
+        <div className="mt-8 bg-purple-100 p-4 rounded-lg text-center">
+          <p>The court is currently unavailable. You have been added to the queue.</p>
         </div>
       </div>
     </div>

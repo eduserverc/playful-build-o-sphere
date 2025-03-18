@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { UserSearch } from 'lucide-react';
 
 const NavBar = () => {
   const location = useLocation();
@@ -25,22 +25,22 @@ const NavBar = () => {
           Home
         </Link>
         <Link
-          to="/rentals"
-          className={`font-medium ${location.pathname === '/rentals' ? 'text-black' : 'text-gray-500'}`}
+          to="/find-players"
+          className={`font-medium flex items-center gap-1 ${location.pathname === '/find-players' ? 'text-black' : 'text-gray-500'}`}
         >
-          Rentals
+          Find Players
         </Link>
         <Link
           to="/court-availability"
           className={`font-medium ${location.pathname === '/court-availability' ? 'text-black font-bold' : 'text-gray-500'}`}
         >
-          Bookings
+          Court Availability
         </Link>
         <Link
-          to="/profile"
-          className={`font-medium ${location.pathname === '/profile' ? 'text-black' : 'text-gray-500'}`}
+          to="/rentals"
+          className={`font-medium ${location.pathname === '/rentals' ? 'text-black' : 'text-gray-500'}`}
         >
-          Profile
+          Rentals
         </Link>
       </nav>
     </header>
