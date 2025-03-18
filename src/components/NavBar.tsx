@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { UserSearch } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const NavBar = () => {
   const location = useLocation();
@@ -41,6 +42,14 @@ const NavBar = () => {
           className={`font-medium ${location.pathname === '/rentals' ? 'text-black' : 'text-gray-500'}`}
         >
           Rentals
+        </Link>
+        <Link
+          to="/login"
+          className="ml-4"
+        >
+          <Button className="bg-purple-600 hover:bg-purple-700">
+            Login
+          </Button>
         </Link>
       </nav>
     </header>
