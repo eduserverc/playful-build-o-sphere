@@ -1,19 +1,18 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { RefreshCw, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import CourtTimeSlot from '@/components/CourtTimeSlot';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { TimeSlot } from '@/lib/types';
-import CourtMap from '@/components/CourtMap';
+import { Card, CardContent } from '@/components/ui/card';
 
 const CourtAvailability = () => {
   const { toast } = useToast();
   const [notifyWhenAvailable, setNotifyWhenAvailable] = useState(false);
-  const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -27,18 +26,6 @@ const CourtAvailability = () => {
     { id: '6', time: '2:00 PM', status: 'booked' },
     { id: '7', time: '3:00 PM', status: 'available' },
   ];
-
-  const handlePreviousDay = () => {
-    const newDate = new Date(currentDate);
-    newDate.setDate(currentDate.getDate() - 1);
-    setCurrentDate(newDate);
-  };
-
-  const handleNextDay = () => {
-    const newDate = new Date(currentDate);
-    newDate.setDate(currentDate.getDate() + 1);
-    setCurrentDate(newDate);
-  };
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -77,16 +64,13 @@ const CourtAvailability = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8"
+            className="flex flex-row items-center justify-between gap-4 mb-10"
           >
-            <div>
-              <h1 className="text-3xl font-bold">Court Availability</h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">Find and book available badminton courts</p>
-            </div>
+            <h1 className="text-3xl font-bold">Court Availability</h1>
             
             <Button
               onClick={handleRefresh}
-              className="self-start md:self-auto"
+              className="rounded-full bg-badminton-purple-600 hover:bg-badminton-purple-700"
               disabled={isRefreshing}
             >
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
@@ -94,45 +78,12 @@ const CourtAvailability = () => {
             </Button>
           </motion.div>
           
-          {/* Map View */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-10"
-          >
-            <CourtMap />
-          </motion.div>
-
-          {/* Date Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center justify-between mb-8"
-          >
-            <Button variant="outline" size="icon" onClick={handlePreviousDay} className="rounded-full">
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            
-            <div className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-badminton-purple-600" />
-              <span className="font-medium">
-                {currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-              </span>
-            </div>
-            
-            <Button variant="outline" size="icon" onClick={handleNextDay} className="rounded-full">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </motion.div>
-          
           {/* Time Slots */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-7 gap-4 mb-10"
           >
             {timeSlots.map((slot) => (
               <CourtTimeSlot 
@@ -147,19 +98,22 @@ const CourtAvailability = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6"
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <h3 className="text-lg font-medium mb-4">Notification</h3>
-            <div className="flex items-center space-x-2">
-              <Switch 
-                id="notify" 
-                checked={notifyWhenAvailable}
-                onCheckedChange={setNotifyWhenAvailable}
-                className="data-[state=checked]:bg-badminton-purple-600"
-              />
-              <Label htmlFor="notify">Notify me when a slot becomes available</Label>
-            </div>
+            <Card className="bg-gray-50 dark:bg-gray-800 border-0 shadow-sm">
+              <CardContent className="pt-6">
+                <h3 className="text-lg font-medium mb-4">Notification</h3>
+                <div className="flex items-center space-x-2">
+                  <Switch 
+                    id="notify" 
+                    checked={notifyWhenAvailable}
+                    onCheckedChange={setNotifyWhenAvailable}
+                    className="data-[state=checked]:bg-badminton-purple-600"
+                  />
+                  <Label htmlFor="notify">Notify me when a slot becomes available</Label>
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
         </div>
       </div>

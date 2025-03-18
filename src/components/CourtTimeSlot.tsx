@@ -21,13 +21,13 @@ const CourtTimeSlot: React.FC<CourtTimeSlotProps> = ({ timeSlot, onClick }) => {
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
       className={cn(
-        'rounded-full py-4 px-6 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center',
+        'rounded-full py-8 px-10 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center',
         isAvailable 
-          ? 'bg-badminton-purple-100 hover:bg-badminton-purple-200' 
+          ? 'bg-badminton-purple-100' 
           : 'bg-badminton-purple-600 text-white'
       )}
     >
-      <span className="text-md font-medium">{timeSlot.time}</span>
+      <span className="text-lg font-medium">{timeSlot.time}</span>
       <span className={cn(
         'text-sm mt-1',
         isAvailable ? 'text-badminton-purple-800' : 'text-badminton-purple-200'
