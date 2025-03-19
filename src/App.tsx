@@ -16,6 +16,13 @@ import AddRental from "./pages/AddRental";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
+// Admin Pages
+import AdminLayout from "./components/admin/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import SeatAllocation from "./pages/admin/SeatAllocation";
+import Notifications from "./pages/admin/Notifications";
+import Settings from "./pages/admin/Settings";
+
 // Components
 import NavBar from "./components/NavBar";
 
@@ -40,77 +47,126 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <NavBar />
-          <AnimatePresence mode="wait">
-            <Routes>
+        <AnimatePresence mode="wait">
+          <Routes>
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminLayout />}>
               <Route 
-                path="/" 
+                path="dashboard" 
                 element={
+                  <PageTransition>
+                    <Dashboard />
+                  </PageTransition>
+                } 
+              />
+              <Route 
+                path="seat-allocation" 
+                element={
+                  <PageTransition>
+                    <SeatAllocation />
+                  </PageTransition>
+                } 
+              />
+              <Route 
+                path="notifications" 
+                element={
+                  <PageTransition>
+                    <Notifications />
+                  </PageTransition>
+                } 
+              />
+              <Route 
+                path="settings" 
+                element={
+                  <PageTransition>
+                    <Settings />
+                  </PageTransition>
+                } 
+              />
+            </Route>
+            
+            {/* Main App Routes */}
+            <Route
+              path="/"
+              element={
+                <div className="flex flex-col min-h-screen">
+                  <NavBar />
                   <PageTransition>
                     <Index />
                   </PageTransition>
-                } 
-              />
-              <Route 
-                path="/court-availability" 
-                element={
+                </div>
+              }
+            />
+            <Route
+              path="/court-availability"
+              element={
+                <div className="flex flex-col min-h-screen">
+                  <NavBar />
                   <PageTransition>
                     <CourtAvailability />
                   </PageTransition>
-                } 
-              />
-              <Route 
-                path="/find-players" 
-                element={
+                </div>
+              }
+            />
+            <Route
+              path="/find-players"
+              element={
+                <div className="flex flex-col min-h-screen">
+                  <NavBar />
                   <PageTransition>
                     <FindPlayers />
                   </PageTransition>
-                } 
-              />
-              <Route 
-                path="/rentals" 
-                element={
+                </div>
+              }
+            />
+            <Route
+              path="/rentals"
+              element={
+                <div className="flex flex-col min-h-screen">
+                  <NavBar />
                   <PageTransition>
                     <Rentals />
                   </PageTransition>
-                } 
-              />
-              <Route 
-                path="/add-rental" 
-                element={
+                </div>
+              }
+            />
+            <Route
+              path="/add-rental"
+              element={
+                <div className="flex flex-col min-h-screen">
+                  <NavBar />
                   <PageTransition>
                     <AddRental />
                   </PageTransition>
-                } 
-              />
-              <Route 
-                path="/login" 
-                element={
-                  <PageTransition>
-                    <Login />
-                  </PageTransition>
-                } 
-              />
-              <Route 
-                path="/signup" 
-                element={
-                  <PageTransition>
-                    <SignUp />
-                  </PageTransition>
-                } 
-              />
-              <Route 
-                path="*" 
-                element={
-                  <PageTransition>
-                    <NotFound />
-                  </PageTransition>
-                } 
-              />
-            </Routes>
-          </AnimatePresence>
-        </div>
+                </div>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PageTransition>
+                  <Login />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <PageTransition>
+                  <SignUp />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PageTransition>
+                  <NotFound />
+                </PageTransition>
+              }
+            />
+          </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
