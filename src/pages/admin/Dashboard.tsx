@@ -1,7 +1,60 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bell, CalendarIcon, Users, Racquet } from 'lucide-react';
+import { Bell, CalendarIcon, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ChartContainer } from '@/components/ui/chart';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Legend
+} from 'recharts';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Sample data for charts
+const userActivityData = [
+  { name: 'Jan', users: 400 },
+  { name: 'Feb', users: 300 },
+  { name: 'Mar', users: 500 },
+  { name: 'Apr', users: 280 },
+  { name: 'May', users: 590 },
+  { name: 'Jun', users: 490 },
+  { name: 'Jul', users: 600 },
+];
+
+const bookingData = [
+  { name: 'Mon', courts: 24, equipment: 12 },
+  { name: 'Tue', courts: 18, equipment: 9 },
+  { name: 'Wed', courts: 32, equipment: 15 },
+  { name: 'Thu', courts: 27, equipment: 13 },
+  { name: 'Fri', courts: 45, equipment: 21 },
+  { name: 'Sat', courts: 65, equipment: 35 },
+  { name: 'Sun', courts: 52, equipment: 28 },
+];
+
+const chartConfig = {
+  users: {
+    label: "Users",
+    color: "#a855f7"
+  },
+  courts: {
+    label: "Court Bookings",
+    color: "#6366f1"
+  },
+  equipment: {
+    label: "Equipment Rentals",
+    color: "#14b8a6"
+  }
+};
 
 const Dashboard = () => {
   return (
@@ -61,6 +114,53 @@ const Dashboard = () => {
         </Card>
       </div>
       
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>User Activity</CardTitle>
+            <CardDescription>Monthly active users</CardDescription>
+          </CardHeader>
+          <CardContent className="h-80">
+            <ChartContainer config={chartConfig} className="h-full">
+              <AreaChart data={userActivityData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#a855f7" stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor="#a855f7" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Area type="monotone" dataKey="users" stroke="#a855f7" fillOpacity={1} fill="url(#colorUsers)" />
+              </AreaChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Booking Analysis</CardTitle>
+            <CardDescription>Court and equipment usage by day</CardDescription>
+          </CardHeader>
+          <CardContent className="h-80">
+            <ChartContainer config={chartConfig} className="h-full">
+              <BarChart data={bookingData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="courts" fill="#6366f1" name="Court Bookings" />
+                <Bar dataKey="equipment" fill="#14b8a6" name="Equipment Rentals" />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>

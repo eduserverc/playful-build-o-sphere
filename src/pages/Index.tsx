@@ -1,106 +1,119 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { CalendarIcon, Users, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Bell } from 'lucide-react';
-import CourtMap from '@/components/CourtMap';
-import NotificationBadge from '@/components/NotificationBadge';
+import { Notification } from '@/lib/types';
 
-const Index = () => {
-  // Mock data for the home page
-  const playerData = {
-    name: "Alex Johnson",
-    description: "Tennis Enthusiast, Level: Intermediate",
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-  };
-
-  const notification = {
-    id: "1",
-    title: "New Slot Available!",
-    message: "Court 5 is now open for booking from 3 PM to 4 PM.",
-    timestamp: new Date(),
-    read: false,
-    type: "court"
-  };
+const Home = () => {
+  const notifications: Notification[] = [
+    {
+      id: "1",
+      title: "Court Maintenance",
+      message: "Court 3 will be closed for maintenance on Saturday.",
+      timestamp: new Date(),
+      read: false,
+      type: "court"
+    },
+    {
+      id: "2",
+      title: "Tournament Registration",
+      message: "Registration for the Spring Tournament is now open!",
+      timestamp: new Date(),
+      read: false,
+      type: "system"
+    }
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Find Players Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm"
-        >
-          <h2 className="text-2xl font-semibold mb-6">Find Players</h2>
-          
-          <div className="flex flex-col items-center">
-            <Avatar className="h-24 w-24 mb-4">
-              <AvatarImage src={playerData.photoUrl} alt={playerData.name} />
-              <AvatarFallback>{playerData.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-            
-            <h3 className="text-xl font-medium">{playerData.name}</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 text-center">
-              {playerData.description}
-            </p>
-            
-            <Button
-              className="mt-4 bg-badminton-purple-600 hover:bg-badminton-purple-700"
-            >
-              Connect
-            </Button>
-          </div>
-        </motion.div>
+    <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-6">Welcome to Badminton Center</h1>
 
-        {/* Court Availability Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm md:col-span-1"
-        >
-          <h2 className="text-2xl font-semibold mb-6">Court Availability</h2>
-          
-          <div className="mb-4">
-            <CourtMap />
-          </div>
-          
-          <div className="mt-4">
-            <h3 className="text-lg font-medium mb-2">Available Courts</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Select a court to see available slots and book your playtime.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Notifications Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm"
-        >
-          <div className="flex items-center mb-6">
-            <h2 className="text-2xl font-semibold">Notifications</h2>
-            <div className="ml-2 relative">
-              <Bell className="h-5 w-5 text-badminton-purple-500" />
-              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500"></span>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Court Availability Card */}
+        <Card className="bg-white shadow-md rounded-lg">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4 mb-4">
+              <CalendarIcon className="h-6 w-6 text-gray-500" />
+              <CardTitle className="text-lg font-semibold">Court Availability</CardTitle>
             </div>
-          </div>
-          
-          <div className="space-y-4">
-            <NotificationBadge notification={notification} />
-            
-            {/* You can add more notification badges here */}
-          </div>
-        </motion.div>
+            <p className="text-gray-600 mb-4">Check real-time court availability and make reservations.</p>
+            <Link to="/court-availability">
+              <Button className="w-full">View Courts</Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        {/* Find Players Card */}
+        <Card className="bg-white shadow-md rounded-lg">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4 mb-4">
+              <Users className="h-6 w-6 text-gray-500" />
+              <CardTitle className="text-lg font-semibold">Find Players</CardTitle>
+            </div>
+            <p className="text-gray-600 mb-4">Connect with other badminton enthusiasts and find your next match.</p>
+            <Link to="/find-players">
+              <Button className="w-full">Find Players</Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        {/* Equipment Rentals Card */}
+        <Card className="bg-white shadow-md rounded-lg">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-6 w-6 text-gray-500"
+              >
+                <rect width="7" height="7" x="2" y="2" rx="1" ry="1" />
+                <rect width="7" height="7" x="15" y="2" rx="1" ry="1" />
+                <rect width="7" height="7" x="2" y="15" rx="1" ry="1" />
+                <path d="M17 17v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2" />
+                <path d="M9 15H7" />
+              </svg>
+              <CardTitle className="text-lg font-semibold">Equipment Rentals</CardTitle>
+            </div>
+            <p className="text-gray-600 mb-4">Rent badminton equipment for your games.</p>
+            <Link to="/rentals">
+              <Button className="w-full">View Rentals</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Notifications Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Notifications</h2>
+        {notifications.length > 0 ? (
+          notifications.map((notification) => (
+            <Card key={notification.id} className="mb-4 bg-white shadow-md rounded-lg">
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <Bell className="h-5 w-5 text-blue-500 mt-1" />
+                  <div>
+                    <CardTitle className="text-md font-semibold">{notification.title}</CardTitle>
+                    <p className="text-gray-700">{notification.message}</p>
+                    <p className="text-gray-500 text-sm mt-1">
+                      {notification.timestamp.toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <p className="text-gray-500">No new notifications.</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default Index;
+export default Home;
