@@ -1,8 +1,7 @@
 
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import { defineConfig } from "tailwindcss";
 
-export default {
+export default defineConfig({
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -14,20 +13,40 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px'
-      }
+        "2xl": "1400px",
+      },
     },
     extend: {
-      fontFamily: {
-        sans: ["Inter var", ...fontFamily.sans],
-      },
       colors: {
+        badminton: {
+          purple: {
+            50: "#f5f3ff",
+            100: "#ede9fe",
+            200: "#ddd6fe",
+            300: "#c4b5fd",
+            400: "#a78bfa",
+            500: "#8b5cf6",
+            600: "#7c3aed",
+            700: "#6d28d9",
+            800: "#5b21b6",
+            900: "#4c1d95",
+            950: "#2e1065",
+          },
+        },
+        lavender: {
+          50: "#f3f1fc",
+          100: "#e9e6f7",
+          200: "#d8d0f2",
+          300: "#c7bdec",
+          400: "#b3a1e4",
+          500: "#9f83db",
+          600: "#8b65d1",
+          700: "#7d5ac8",
+          800: "#6444a3",
+          900: "#523885",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -61,23 +80,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'badminton-purple': {
-          '50': '#f5f3ff',
-          '100': '#ede9fe',
-          '200': '#ddd6fe',
-          '300': '#c4b5fd',
-          '400': '#a78bfa',
-          '500': '#8b5cf6',
-          '600': '#7c3aed',
-          '700': '#6d28d9',
-          '800': '#5b21b6',
-          '900': '#4c1d95',
-        }
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 0.25rem)",
-        sm: "calc(var(--radius) - 0.5rem)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
@@ -88,28 +95,12 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "float": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-5px)" },
-        },
-        "pulse-subtle": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.8" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 3s ease-in-out infinite",
-        "pulse-subtle": "pulse-subtle 3s ease-in-out infinite",
       },
-      boxShadow: {
-        'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
-        'neomorphic': '10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff',
-        'neomorphic-dark': '10px 10px 20px #151515, -10px -10px 20px #252525',
-        'soft': '0 10px 50px -12px rgba(0, 0, 0, 0.1)',
-      }
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+});

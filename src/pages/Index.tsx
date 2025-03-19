@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
 import CourtMap from '@/components/CourtMap';
 import NotificationBadge from '@/components/NotificationBadge';
+import { Notification } from '@/lib/types';
 
 const Index = () => {
   // Mock data for the home page
@@ -16,7 +17,7 @@ const Index = () => {
     photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
   };
 
-  const notification = {
+  const notification: Notification = {
     id: "1",
     title: "New Slot Available!",
     message: "Court 5 is now open for booking from 3 PM to 4 PM.",
