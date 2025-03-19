@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AddEquipmentDialog from '@/components/AddEquipmentDialog';
 
 interface RentalItem {
   id: string;
@@ -15,9 +16,8 @@ interface RentalItem {
 
 const Rentals = () => {
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Sample rental items
-  const rentalItems: RentalItem[] = [
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [rentalItems, setRentalItems] = useState<RentalItem[]>([
     {
       id: '1',
       name: 'Yonex Badminton Racket',
@@ -39,7 +39,20 @@ const Rentals = () => {
       user: 'Nivin Prasad',
       image: 'https://images.unsplash.com/photo-1521805103424-d8f8430e8933?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFkbWludG9uJTIwcmFja2V0fGVufDB8fDB8fHww',
     },
-  ];
+  ]);
+
+  const handleAddEquipment = (equipment: { name: string; condition: string; user: string; image: string }) => {
+    const newItem: RentalItem = {
+      id: Date.now().toString(), // Simple ID generation
+      ...equipment
+    };
+    
+    setRentalItems([...rentalItems, newItem]);
+  };
+
+  const filteredItems = rentalItems.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen p-6">
@@ -55,7 +68,7 @@ const Rentals = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {rentalItems.map((item) => (
+          {filteredItems.map((item) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 10 }}
@@ -83,12 +96,19 @@ const Rentals = () => {
 
         <div className="fixed bottom-10 right-10">
           <Button
+            onClick={() => setDialogOpen(true)}
             className="w-14 h-14 rounded-full bg-purple-600 hover:bg-purple-700 flex items-center justify-center"
           >
             <Plus size={24} />
           </Button>
         </div>
       </div>
+
+      <AddEquipmentDialog 
+        open={dialogOpen} 
+        onOpenChange={setDialogOpen} 
+        onAddEquipment={handleAddEquipment}
+      />
 
       <footer className="mt-16 border-t pt-4 flex justify-between text-sm text-gray-500">
         <p>© 2025 BCM. All rights reserved</p>
