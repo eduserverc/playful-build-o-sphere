@@ -17,8 +17,6 @@ import {
   Bar,
   Legend
 } from 'recharts';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Skeleton } from '@/components/ui/skeleton';
 
 // Sample data for charts
 const userActivityData = [
@@ -157,66 +155,6 @@ const Dashboard = () => {
                 <Bar dataKey="equipment" fill="#14b8a6" name="Equipment Rentals" />
               </BarChart>
             </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activities</CardTitle>
-            <CardDescription>Latest user actions in the system</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[
-                { user: "John Smith", action: "Booked Court #3", time: "2 hours ago" },
-                { user: "Sarah Connor", action: "Rented 2 racquets", time: "4 hours ago" },
-                { user: "Emily Davis", action: "Cancelled booking", time: "Yesterday" },
-                { user: "Alex Wong", action: "Updated profile", time: "2 days ago" },
-              ].map((activity, i) => (
-                <div key={i} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                  <div>
-                    <div className="font-medium">{activity.user}</div>
-                    <div className="text-sm text-gray-500">{activity.action}</div>
-                  </div>
-                  <div className="text-xs text-gray-400">{activity.time}</div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Frequently used admin functions</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <Link to="/admin/seat-allocation">
-                <Button variant="outline" className="w-full justify-start">
-                  <Users className="h-4 w-4 mr-2" />
-                  Allocate Seats
-                </Button>
-              </Link>
-              <Link to="/admin/notifications">
-                <Button variant="outline" className="w-full justify-start">
-                  <Bell className="h-4 w-4 mr-2" />
-                  Send Notifications
-                </Button>
-              </Link>
-              <Button variant="outline" className="w-full justify-start">
-                <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 3V7M18 11V21M12 3V13M12 17V21M6 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Manage Equipment
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <CalendarIcon className="h-4 w-4 mr-2" />
-                Court Schedule
-              </Button>
-            </div>
           </CardContent>
         </Card>
       </div>
